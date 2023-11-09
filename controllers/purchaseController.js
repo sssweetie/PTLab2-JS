@@ -14,10 +14,9 @@ exports.sellProducts = async function (req, res) {
     const prices = []
     for (let product in products) {
         const totalPrice = await getTotalPrice(product, products[product], Product)
-        if (totalPrice === 0) {
-            break;
-        }
-        prices.push(totalPrice)
+        prices.push({ name: product, count: products[product], totalPrice })
     }
-    res.send(prices);
+    res.render("products.hbs", {
+        products: prices,
+    })
 }
