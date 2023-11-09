@@ -1,13 +1,6 @@
 
 const Product = require("../models/product.js")
-
-const getTotalPrice = async (name, count) => {
-    const product = await Product.findOne({ name })
-    const productCount = product.count
-    await Product.updateOne({ name }, { count: productCount - count })
-
-    return count * product.price
-}
+const getTotalPrice = require("../utils/getTotalPrice.js")
 
 exports.getProducts = async function (req, res) {
     const products = await Product.find({})
@@ -20,7 +13,7 @@ exports.sellProducts = async function (req, res) {
     const products = req.body
     const prices = []
     for (let product in products) {
-        const totalPrice = await getTotalPrice(product, products[product])
+        const totalPrice = await getTotalPrice(product, products[product], Product)
         prices.push(totalPrice)
     }
     res.send(prices);
