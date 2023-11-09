@@ -1,36 +1,27 @@
 
-const data = require("../models/product.js")
+const Product = require("../models/product.js")
 
-exports.getProducts = function (req, res) {
+const getTotalPrice = async (name, count) => {
+    const product = await Product.findOne({ name })
+    const productCount = product.count
+    await Product.updateOne({ name }, { count: productCount - count })
+
+    return count * product.price
+}
+
+exports.getProducts = async function (req, res) {
+    const products = await Product.find({})
     res.render("index.hbs", {
-        products: data.products.getAllProducts()
+        products
     })
 }
 
-exports.sellProducts = function (req, res) {
+exports.sellProducts = async function (req, res) {
     const products = req.body
     const prices = []
     for (let product in products) {
-        const totalPrice = data.getTotalPrice(product, products[product])
+        const totalPrice = await getTotalPrice(product, products[product])
         prices.push(totalPrice)
     }
     res.send(prices);
 }
-
-// const User = require("../models/user.js");
-
-// exports.addUser = function (request, response) {
-//     response.render("create.hbs");
-// };
-// exports.getUsers = function (request, response) {
-//     response.render("users.hbs", {
-//         users: User.getAll()
-//     });
-// };
-// exports.postUser = function (request, response) {
-//     const username = request.body.name;
-//     const userage = request.body.age;
-//     const user = new User(username, userage);
-//     user.save();
-//     response.redirect("/users");
-// };
