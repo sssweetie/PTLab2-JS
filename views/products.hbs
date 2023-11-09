@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Список покупок</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h1>Список покупок</h1>
+     <table>
+         <tr>
+            <th>Название</th>
+            <th>Кол-во</th>
+            <th>Стоимость (все)</th>
+        </tr>
+         {{#each products}}
+            <tr><td>{{this.name}}</td><td>{{this.count}}</td><td>{{this.totalPrice}}</td></tr>
+         {{/each}}
+     </table>
+</body>
+<html>
