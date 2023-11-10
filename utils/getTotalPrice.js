@@ -5,7 +5,7 @@ const getTotalPrice = async (name, count, model) => {
         return count * product.price;
     } else {
         return 0;
-    }
+    }   
 }
 
 module.exports = getTotalPrice;
