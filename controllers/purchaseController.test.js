@@ -5,9 +5,11 @@ jest.mock('../models/product.js');
 
 describe('getProducts', () => {
     let req;
+
     beforeEach(() => {
         req = {};
     })
+    
     it('should render index.hbs with products', async () => {
 
         const res = {
@@ -21,6 +23,7 @@ describe('getProducts', () => {
         ]
 
         Product.find.mockResolvedValue(products)
+
         await getProducts(req, res);
 
         expect(res.status).toHaveBeenCalledWith(200);
