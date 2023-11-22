@@ -3,10 +3,14 @@ const Product = require("../models/product.js")
 const getTotalPrice = require("../utils/getTotalPrice.js")
 
 exports.getProducts = async function (req, res) {
-    const products = await Product.find({})
-    res.render("index.hbs", {
-        products
-    })
+    try {
+        const products = await Product.find({});
+        res.status(200).render("index.hbs", {
+            products
+        });
+    } catch (error) {
+        res.sendStatus(500);
+    }
 }
 
 exports.sellProducts = async function (req, res) {
