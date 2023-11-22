@@ -4,8 +4,12 @@ const Product = require('../models/product.js');
 jest.mock('../models/product.js');
 
 describe('getProducts', () => {
+    let req;
+    beforeEach(() => {
+        req = {};
+    })
     it('should render index.hbs with products', async () => {
-        const req = {};
+
         const res = {
             status: jest.fn().mockReturnThis(),
             render: jest.fn(),
@@ -26,7 +30,6 @@ describe('getProducts', () => {
     });
 
     it('should send 500 status on error', async () => {
-        const req = {};
         const res = {
             sendStatus: jest.fn(),
         };
