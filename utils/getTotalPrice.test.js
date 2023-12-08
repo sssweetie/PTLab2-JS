@@ -17,7 +17,7 @@ describe("getTotalPrice function", () => {
       price: 1000,
     };
     mockModel.findOne.mockResolvedValue(mockProduct);
-    mockModel.findOneAndUpdate.mockResolvedValue({ ...mockProduct, count: 5 });
+    mockModel.findOneAndUpdate.mockResolvedValue({ ...mockProduct, count: 8 });
 
     const totalPrice = await getTotalPrice("diamond", 2, mockModel);
     expect(totalPrice).toBe(2000);
